@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.services.analytics_service import (
+from services.analytics_service import (
     get_client_pivot_table,
     get_clients,
     get_dashboard_summary
