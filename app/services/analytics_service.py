@@ -1,5 +1,5 @@
 import pandas as pd
-from app.storage import dataset_store
+from storage import dataset_store
 
 def get_client_pivot_table(client:str, year, month, day, turno):
     df = dataset_store.dataset
