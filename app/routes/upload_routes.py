@@ -7,6 +7,6 @@ router = APIRouter(
     tags=["Upload"]
 )
 
-@router.post("/")
+@router.post("")
 async def upload(file: UploadFile = File(...)):
     return await upload_excel(file)

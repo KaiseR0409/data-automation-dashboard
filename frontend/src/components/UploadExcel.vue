@@ -24,7 +24,7 @@ const uploadFile = async () => {
   try {
 
     const response = await api.post(
-      "/upload",
+      "/upload/",
       formData,
       {
         headers: {
