@@ -8,7 +8,7 @@ const props = defineProps({
 
 
 const currentPage = ref(1)
-const rowsPerPage = 20
+const rowsPerPage = 10
 
 
 const totalPages = computed(() => {

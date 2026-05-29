@@ -33,7 +33,6 @@ watch(
       {
         client: filters.client,
 
-        year: filters.year || undefined,
 
         month: filters.month
           ? filters.month.month + 1
@@ -87,10 +86,7 @@ watch(
       </option>
     </select>
 
-    <!-- AÑO -->
-
-    <VueDatePicker v-model="filters.year" :disabled="!enabled" :locale="es" year-picker dark placeholder="Año" :year-range="[2020, 2030]" :start-date="new Date()" auto-apply />
-
+    
     <!-- MES -->
 
     <VueDatePicker v-model="filters.month" :disabled="!enabled" :locale="es" month-picker dark placeholder="Mes" auto-apply disable-year-select />

@@ -3,7 +3,8 @@ from fastapi import APIRouter
 from app.services.analytics_service import (
     get_client_pivot_table,
     get_clients,
-    get_dashboard_summary
+    get_dashboard_summary,
+    get_line_chart_data
 )
 
 router = APIRouter(
@@ -28,6 +29,22 @@ def clients():
 
 @router.get("/summary")
 def dashboard_summary(
-    client: str | None = None
+    client: str | None = None,
+    year: int | None = None
 ):
-    return get_dashboard_summary(client)
+    return get_dashboard_summary(client, year)
+
+@router.get("/line-chart")
+def line_chart(
+    client: str | None = None,
+    product: str | None = None,
+    year: int | None = None,
+    month: int | None = None
+):
+
+    return get_line_chart_data(
+        client,
+        product,
+        year,
+        month
+    )
