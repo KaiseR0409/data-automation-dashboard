@@ -24,6 +24,7 @@ const lineChartData = ref(null)
 const selectedProduct = ref("")
 const productFilter = ref("")
 const globalYear = ref("")
+const currentFilters = ref({})
 
 const fetchSummary = async () => {
 
@@ -72,6 +73,7 @@ const handleUploadSuccess = async (uploadedClients) => {
 const fetchClientData = async (filters) => {
 
   selectedClient.value = filters.client
+  currentFilters.value = filters
   await fetchLineChart(filters)
 
   if (!filters.client) {
@@ -162,14 +164,16 @@ const fetchLineChart = async (filters) => {
 }
 
 watch(selectedClient, () => {
-  fetchClientSummary()
+  fetchClientSummary(
+    currentFilters.value
+  )
 })
 
 watch(productFilter, async () => {
 
-  await fetchLineChart({
-    client: selectedClient.value
-  })
+  await fetchLineChart(
+    currentFilters.value
+  )
 
 })
 
@@ -181,9 +185,9 @@ watch(globalYear, async () => {
 
     await fetchClientSummary()
 
-    await fetchClientData({
-      client: selectedClient.value
-    })
+    await fetchClientData(
+      currentFilters.value
+    )
 
   }
   else {
