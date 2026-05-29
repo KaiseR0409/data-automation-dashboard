@@ -1,23 +1,46 @@
 <script setup>
 
-import { ref } from "vue"
+import { ref, watch } from "vue"
 
 import api from "../api/analytics"
+
 
 import UploadExcel from "../components/UploadExcel.vue"
 import FiltersBar from "../components/FiltersBar.vue"
 import PivotTable from "../components/PivotTable.vue"
 import SummaryCards from "../components/SummaryCards.vue"
+import ClientSummaryCards from "../components/ClientSummaryCards.vue"
 
 const tableData = ref([])
 const clients = ref([])
 const datasetLoaded = ref(false)
 const summary = ref({})
+const selectedClientSummary = ref({})
+const selectedClient = ref("")
 
 const fetchSummary = async () => {
   const response = await api.get("/analytics/summary")
 
   summary.value = response.data
+}
+
+const fetchClientSummary = async () => {
+
+  if (!selectedClient.value) {
+    selectedClientSummary.value = {}
+    return
+  }
+
+  const response = await api.get(
+    "/analytics/summary",
+    {
+      params: {
+        client: selectedClient.value
+      }
+    }
+  )
+
+  selectedClientSummary.value = response.data
 }
 
 const handleUploadSuccess = async (uploadedClients) => {
@@ -30,6 +53,8 @@ const handleUploadSuccess = async (uploadedClients) => {
 }
 
 const fetchClientData = async (filters) => {
+
+  selectedClient.value = filters.client
 
   if (!filters.client) {
     tableData.value = []
@@ -60,6 +85,10 @@ const fetchClientData = async (filters) => {
   }
 
 }
+
+watch(selectedClient, () => {
+  fetchClientSummary()
+})
 
 </script>
 
@@ -97,7 +126,12 @@ const fetchClientData = async (filters) => {
       </h1>
 
 
-      <SummaryCards :summary="summary"/>
+
+      <SummaryCards :summary="summary" />
+
+      <Transition name="fade-slide">
+        <ClientSummaryCards v-if="selectedClient" :summary="selectedClientSummary" :client="selectedClient" />
+      </Transition>
       <div class="
           flex
           flex-col
@@ -120,3 +154,16 @@ const fetchClientData = async (filters) => {
   </div>
 
 </template>
+
+<style scoped>
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.35s ease;
+}
+
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+</style>

@@ -1,0 +1,123 @@
+<script setup>
+
+import {
+    Package,
+    Boxes
+} from "lucide-vue-next"
+
+import CountUp from "vue-countup-v3"
+
+defineProps({
+    summary: Object,
+    client: String,
+})
+
+</script>
+
+<template>
+
+    <div v-if="client" class="
+            grid
+            grid-cols-1
+            md:grid-cols-2
+            gap-6
+            mb-8
+        ">
+
+        <!-- SACOS -->
+
+        <div class="
+            relative
+            overflow-hidden
+            bg-gradient-to-br
+            from-pink-600/10
+            to-pink-900/5
+            border
+            border-pink-500/20
+            rounded-3xl
+            p-6
+            shadow-xl
+        ">
+
+            <div class="
+                absolute
+                top-0
+                right-0
+                w-28
+                h-28
+                bg-pink-500/10
+                blur-3xl
+                rounded-full
+            " />
+
+            <div class="
+                w-14
+                h-14
+                rounded-2xl
+                bg-pink-500/20
+                flex
+                items-center
+                justify-center
+                mb-4
+            ">
+                <Package class="w-7 h-7 text-pink-400" />
+            </div>
+
+            <p class="text-gray-400 text-sm mb-2">
+                Sacos totales de {{ client }}
+            </p>
+
+            <CountUp :end-val="summary.total_sacos || 0" :duration="2" class="text-4xl font-bold text-white" />
+
+        </div>
+
+        <!-- MAXISACOS -->
+
+        <div class="
+            relative
+            overflow-hidden
+            bg-gradient-to-br
+            from-sky-600/10
+            to-sky-900/5
+            border
+            border-sky-500/20
+            rounded-3xl
+            p-6
+            shadow-xl
+        ">
+
+            <div class="
+                absolute
+                top-0
+                right-0
+                w-28
+                h-28
+                bg-sky-500/10
+                blur-3xl
+                rounded-full
+            " />
+
+            <div class="
+                w-14
+                h-14
+                rounded-2xl
+                bg-sky-500/20
+                flex
+                items-center
+                justify-center
+                mb-4
+            ">
+                <Boxes class="w-7 h-7 text-sky-400" />
+            </div>
+
+            <p class="text-gray-400 text-sm mb-2">
+                Maxisacos totales de {{ client }}
+            </p>
+
+           <CountUp :end-val="summary.total_maxisacos || 0" :duration="2" class="text-4xl font-bold text-white" />
+
+        </div>
+
+    </div>
+
+</template>

@@ -7,6 +7,8 @@ import {
     Database
 } from "lucide-vue-next"
 
+import CountUp from "vue-countup-v3"
+
 defineProps({
     summary: Object
 })
@@ -70,16 +72,13 @@ defineProps({
                 Sacos Totales
             </h3>
 
-            <p class="text-4xl font-bold text-white">
-                {{ summary.total_sacos || 0 }}
-            </p>
+            <CountUp :end-val="summary.total_sacos || 0" :duration="2" class="text-4xl font-bold text-white" />
 
-            <p class="text-sm mt-2 font-medium" :class="summary?.variations?.sacos >= 0
-                ? 'text-green-400'
-                : 'text-red-400'
-                ">
-                {{ summary?.variations?.sacos || 0 }}%
-            </p>
+            <CountUp :end-val="summary?.variations?.sacos || 0" :duration="1.5" :decimals="1" suffix="%"
+                class="text-sm mt-2 font-medium" :class="summary?.variations?.sacos >= 0
+                    ? 'text-green-400'  
+                    : 'text-red-400'
+                    " />
 
 
         </div>
@@ -130,16 +129,13 @@ defineProps({
                 Maxisacos Totales
             </h3>
 
-            <p class="text-4xl font-bold text-white">
-                {{ summary.total_maxisacos || 0 }}
-            </p>
+            <CountUp :end-val="summary.total_maxisacos || 0" :duration="2" class="text-4xl font-bold text-white" />
 
-            <p class="text-sm mt-2 font-medium" :class="summary?.variations?.maxisacos >= 0
-                ? 'text-green-400'
-                : 'text-red-400'
-                ">
-                {{ summary?.variations?.maxisacos || 0 }}%
-            </p>
+            <CountUp :end-val="summary?.variations?.maxisacos || 0" :duration="1.5" :decimals="1" suffix="%"
+                class="text-sm mt-2 font-medium" :class="summary?.variations?.maxisacos >= 0
+                    ? 'text-green-400'
+                    : 'text-red-400'
+                    " />
 
         </div>
 
@@ -189,16 +185,13 @@ defineProps({
                 Clientes Activos
             </h3>
 
-            <p class="text-4xl font-bold text-white">
-                {{ summary.clientes_activos || 0 }}
-            </p>
+            <CountUp :end-val="summary.clientes_activos || 0" :duration="2" class="text-4xl font-bold text-white" />
 
-            <p class="text-sm mt-2 font-medium" :class="summary?.variations?.clientes >= 0
-                ? 'text-green-400'
-                : 'text-red-400'
-                ">
-                {{ summary?.variations?.clientes || 0 }}%
-            </p>
+            <CountUp :end-val="summary?.variations?.clientes || 0" :duration="1.5" :decimals="1" suffix="%"
+                class="text-sm mt-2 font-medium" :class="summary?.variations?.clientes >= 0
+                    ? 'text-green-400'
+                    : 'text-red-400'
+                    " />
 
         </div>
 
@@ -248,16 +241,15 @@ defineProps({
                 Registros Totales
             </h3>
 
-            <p class="text-4xl font-bold text-white">
-                {{ summary.registros_totales || 0 }}
-            </p>
+            <CountUp :end-val="summary.registros_totales || 0" :duration="2" class="text-4xl font-bold text-white" />
 
-            <p class="text-sm mt-2 font-medium" :class="summary?.variations?.registros >= 0
+            <CountUp :end-val="summary?.variations?.registros || 0" :duration="1.5" :decimals="1" suffix="%"
+                class="text-sm mt-2 font-medium" :class="summary?.variations?.registros >= 0
                     ? 'text-green-400'
                     : 'text-red-400'
-                ">
-                {{ summary?.variations?.registros || 0 }}%
-            </p>
+                    " />
+
+
 
         </div>
 

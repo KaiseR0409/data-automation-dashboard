@@ -1,35 +1,54 @@
 <script setup>
 
-defineProps({
+import { ref, computed } from "vue"
+
+const props = defineProps({
   rows: Array
+})
+
+
+const currentPage = ref(1)
+const rowsPerPage = 20
+
+
+const totalPages = computed(() => {
+  return Math.ceil(
+    props.rows.length || 0 / rowsPerPage
+  )
+})
+
+const paginatedRows = computed(() => {
+
+  const start = (
+    (currentPage.value - 1)
+    * rowsPerPage
+  )
+
+  const end = start + rowsPerPage
+
+  return (props.rows || []).props.rows.slice(start, end)
 })
 
 </script>
 
 <template>
 
-  <div
-    class="
+  <div class="
       overflow-x-auto
       rounded-2xl
       border
       border-gray-800
-    "
-  >
+    ">
 
-    <table
-      class="
+    <table class="
         w-full
         border-collapse
-      "
-    >
+      ">
 
-      <thead
-        class="
+      <thead class="
           bg-gray-800
           text-purple-300
-        "
-      >
+        ">
 
         <tr>
 
@@ -59,16 +78,12 @@ defineProps({
 
       <tbody>
 
-        <tr
-          v-for="(row, index) in rows"
-          :key="index"
-          class="
+        <tr v-for="(row, index) in paginatedRows" :key="index" class="
             border-t
             border-gray-800
             hover:bg-gray-800
             transition
-          "
-        >
+          ">
 
           <td class="p-4">
             {{ row.Fecha }}
@@ -95,6 +110,44 @@ defineProps({
       </tbody>
 
     </table>
+
+    <div v-if="totalPages > 1" class="
+        flex
+        justify-center
+        items-center
+        gap-4
+        mt-6
+    ">
+
+      <button @click="currentPage--" :disabled="currentPage === 1" class="
+            px-4
+            py-2
+            rounded-xl
+            bg-white/5
+            border
+            border-white/10
+            hover:bg-white/10
+            disabled:opacity-40
+        ">
+        Anterior
+      </button>
+
+      <span class="text-gray-300">
+        Página {{ currentPage }} de {{ totalPages }}
+      </span>
+
+      <button @click="currentPage++" :disabled="currentPage === totalPages" class="
+            px-4
+            py-2
+            rounded-xl
+            bg-purple-600
+            hover:bg-purple-500
+            disabled:opacity-40
+        ">
+        Siguiente
+      </button>
+
+    </div>
 
   </div>
 
