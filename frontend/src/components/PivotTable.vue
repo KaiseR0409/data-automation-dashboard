@@ -13,7 +13,7 @@ const rowsPerPage = 20
 
 const totalPages = computed(() => {
   return Math.ceil(
-    props.rows.length || 0 / rowsPerPage
+    (props.rows?.length || 0) / rowsPerPage
   )
 })
 
@@ -26,7 +26,7 @@ const paginatedRows = computed(() => {
 
   const end = start + rowsPerPage
 
-  return (props.rows || []).props.rows.slice(start, end)
+  return (props.rows || []).slice(start, end)
 })
 
 </script>
