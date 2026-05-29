@@ -1,6 +1,6 @@
 from fastapi import  FastAPI
-from routes.analytics_routes import router as analytics_router
-from routes.upload_routes import router as upload_router
+from app.routes.analytics_routes import router as analytics_router
+from app.routes.upload_routes import router as upload_router
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from pathlib import Path

@@ -1,5 +1,5 @@
 import pandas as pd
-from storage import dataset_store
+from app.storage import dataset_store
 
 def get_client_pivot_table(client:str, year, month, day, turno):
     df = dataset_store.dataset
@@ -102,11 +102,11 @@ def calculate_variation(current, previous):
         1
     )
     
-def get_dashboard_summary():
+def get_dashboard_summary(client=None):
 
     df = dataset_store.dataset
     previous_df = dataset_store.previous_dataset
-    
+
     if df is None:
         return {
             "error": "Dataset no cargado correctamente"
@@ -115,6 +115,18 @@ def get_dashboard_summary():
         return{
             "error": "Dataset vacío"
         }
+    
+
+    #filtrar por cliente
+    if client:
+        df = df[
+            df["Sucursal"] == client
+        ]
+
+        if previous_df is not None:
+            previous_df = previous_df[
+                previous_df["Sucursal"] == client
+            ]
     
     total_sacos = 0
     total_maxisacos = 0

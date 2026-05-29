@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File
 
-from services.upload_service import upload_excel
+from app.services.upload_service import upload_excel
 
 router = APIRouter(
     prefix="/upload",

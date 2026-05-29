@@ -1,8 +1,8 @@
 import pandas as pd
 import os
 from fastapi import UploadFile
-from processing.data_cleaning import clean_dataframe
-from storage import dataset_store
+from app.processing.data_cleaning import clean_dataframe
+from app.storage import dataset_store
 
 UPLOAD_DIR = "app/uploads"
 

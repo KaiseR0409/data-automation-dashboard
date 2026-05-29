@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from services.analytics_service import (
+from app.services.analytics_service import (
     get_client_pivot_table,
     get_clients,
     get_dashboard_summary
@@ -27,5 +27,7 @@ def clients():
     return get_clients()
 
 @router.get("/summary")
-def dashboard_summary():
-    return get_dashboard_summary()
+def dashboard_summary(
+    client: str | None = None
+):
+    return get_dashboard_summary(client)
