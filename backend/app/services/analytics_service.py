@@ -286,9 +286,14 @@ def get_line_chart_data(
         ]
 
     
+    filtered_df["Despacho"] = pd.to_numeric(
+        filtered_df["Despacho"],
+        errors="coerce"
+    ).fillna(0)
+
     grouped = (
         filtered_df
-        .groupby(["Fecha", "SEMANA"])["Sacos"]
+        .groupby(["Fecha", "SEMANA"])["Despacho"]
         .sum()
         .reset_index()
     )

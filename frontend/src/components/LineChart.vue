@@ -193,7 +193,7 @@ Chart.register(
     ">
 
             Gráfica de
-            {{ selectedProduct || "Saco de productos" }}
+            {{ selectedProduct || "Despachos" }}
 
         </h2>
 

@@ -197,7 +197,7 @@ const fetchLineChart = async (filters) => {
 
       datasets: [
         {
-          label: productFilter.value || "Sacos",
+          label: productFilter.value || "Tonelaje",
 
           data: response.data.map(
             item => item.cantidad
@@ -382,7 +382,7 @@ watch(globalYear, async () => {
 
       </div>
       <LineChart v-if="lineChartData" :chartData="lineChartData" :selectedProduct="selectedProduct" />
-      <LineChart v-if="truckChartData" :chartData="truckChartData" selectedProduct="Despachos" />
+      <LineChart v-if="truckChartData" :chartData="truckChartData" selectedProduct="Camiones" />
     </div>
 
   </div>
