@@ -74,14 +74,13 @@ defineProps({
             </h3>
 
             <div class="flex items-end gap-2">
-                <CountUp :end-val="summary.total_sacos || 0" :duration="2" :decimals="2"
+                <CountUp :end-val="summary.total_sacos || 0" :duration="2" :use-grouping="false"
                     class="text-4xl font-bold text-white" />
-
                 <span class="text-xl text-purple-300 mb-1">
                     T
                 </span>
             </div>
-            <CountUp :end-val="summary?.variations?.sacos || 0" :duration="1.5" :decimals="1" suffix="%"
+            <CountUp :end-val="summary?.variations?.sacos || 0" :duration="1.5" suffix="%"
                 class="text-sm mt-2 font-medium" :class="summary?.variations?.sacos >= 0
                     ? 'text-green-400'
                     : 'text-red-400'
@@ -137,14 +136,14 @@ defineProps({
             </h3>
 
             <div class="flex items-end gap-2">
-                <CountUp :end-val="summary.total_maxisacos || 0" :duration="2" :decimals="2"
+                <CountUp :end-val="summary.total_maxisacos || 0" :duration="2" :use-grouping="false"
                     class="text-4xl font-bold text-white" />
 
                 <span class="text-xl text-purple-300 mb-1">
                     T
                 </span>
             </div>
-            <CountUp :end-val="summary?.variations?.maxisacos || 0" :duration="1.5" :decimals="1" suffix="%"
+            <CountUp :end-val="summary?.variations?.maxisacos || 0" :duration="1.5" suffix="%"
                 class="text-sm mt-2 font-medium" :class="summary?.variations?.maxisacos >= 0
                     ? 'text-green-400'
                     : 'text-red-400'
@@ -199,7 +198,7 @@ defineProps({
 
             <CountUp :end-val="summary.clientes_activos || 0" :duration="2" class="text-4xl font-bold text-white" />
 
-            <CountUp :end-val="summary?.variations?.clientes || 0" :duration="1.5" :decimals="1" suffix="%"
+            <CountUp :end-val="summary?.variations?.clientes || 0" :duration="1.5" suffix="%"
                 class="text-sm mt-2 font-medium" :class="summary?.variations?.clientes >= 0
                     ? 'text-green-400'
                     : 'text-red-400'
@@ -255,7 +254,7 @@ defineProps({
 
             <CountUp :end-val="summary.registros_totales || 0" :duration="2" class="text-4xl font-bold text-white" />
 
-            <CountUp :end-val="summary?.variations?.registros || 0" :duration="1.5" :decimals="1" suffix="%"
+            <CountUp :end-val="summary?.variations?.registros || 0" :duration="1.5" suffix="%"
                 class="text-sm mt-2 font-medium" :class="summary?.variations?.registros >= 0
                     ? 'text-green-400'
                     : 'text-red-400'

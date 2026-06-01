@@ -120,6 +120,17 @@ const chartOptions = {
 
     plugins: {
 
+        tooltip: {
+            callbacks: {
+                label: (context) => {
+                    const value = 
+                    Math.round(context.parsed.y)
+
+                    return `${context.dataset.label}: ${value}`
+                }
+            }
+        },
+
         legend: {
             labels: {
                 color: "white",

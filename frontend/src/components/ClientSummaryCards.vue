@@ -68,7 +68,7 @@ defineProps({
             </p>
 
             <div class="flex items-end gap-2">
-                <CountUp :end-val="summary.total_sacos || 0" :duration="2" :decimals="2"
+                <CountUp :end-val="summary.total_sacos || 0" :duration="2"
                     class="text-4xl font-bold text-white" />
 
                 <span class="text-lg text-pink-300 mb-1">
@@ -122,7 +122,7 @@ defineProps({
             </p>
 
             <div class="flex items-end gap-2">
-                <CountUp :end-val="summary.total_maxisacos || 0" :duration="2" :decimals="2"
+                <CountUp :end-val="summary.total_maxisacos || 0" :duration="2"
                     class="text-4xl font-bold text-white" />
 
                 <span class="text-lg text-pink-300 mb-1">
