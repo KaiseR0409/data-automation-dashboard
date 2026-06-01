@@ -102,7 +102,7 @@ def calculate_variation(current, previous):
         1
     )
     
-def get_dashboard_summary(client=None):
+def get_dashboard_summary(client=None, year=None):
 
     df = dataset_store.dataset
     previous_df = dataset_store.previous_dataset
@@ -115,6 +115,19 @@ def get_dashboard_summary(client=None):
         return{
             "error": "Dataset vacío"
         }
+    
+        # filtrar por año
+    if year:
+
+        df = df[
+            df["Fecha"].dt.year == year
+        ]
+
+        if previous_df is not None:
+
+            previous_df = previous_df[
+                previous_df["Fecha"].dt.year == year
+            ]
     
 
     #filtrar por cliente
@@ -213,6 +226,131 @@ def get_dashboard_summary(client=None):
             "registros": registros_variation
         }
     }
+
+def get_line_chart_data(
+  client=None,
+  product=None,
+  year=None,
+  month=None      
+):
+    df = dataset_store.dataset
+
+    if df is None:
+        return []
+    
+    filtered_df = df.copy()
+
+    filtered_df["Fecha"] = pd.to_datetime(
+        filtered_df["Fecha"],
+        errors="coerce"
+    )
+
+    if client:
+        filtered_df = filtered_df[
+            filtered_df["Sucursal"] == client
+        ]
+
+    if product:
+        filtered_df = filtered_df[
+            filtered_df["Formato"] == product
+        ]
+
+    if year:
+        filtered_df = filtered_df[
+            filtered_df["Fecha"].dt.year == year
+        ]
+
+    if month:
+        filtered_df = filtered_df[
+            filtered_df["Fecha"].dt.month == month
+        ]
+
+    
+    grouped = (
+        filtered_df
+        .groupby("Fecha")["Sacos"]
+        .sum()
+        .reset_index()
+    )
+
+    grouped["Fecha"] = (
+        grouped["Fecha"]
+        .dt.strftime("%d-%m-%Y")
+    )
+
+    grouped.columns = [
+        "fecha",
+        "cantidad"
+    ]
+
+    return grouped.to_dict(
+        orient="records"
+    )
+
+def get_truck_chart(
+    client=None,
+    year=None,
+    month=None
+):
+    df = dataset_store.dataset
+
+    if df is None:
+        return []
+
+    df = df.copy()
+
+    df["Fecha"] = pd.to_datetime(
+        df["Fecha"],
+        errors="coerce"
+    )
+
+    if client:
+
+        df = df[
+            df["Sucursal"] == client
+        ]
+
+    if year:
+
+        df = df[
+            df["Fecha"].dt.year == year
+        ]
+
+    if month:
+
+        df = df[
+            df["Fecha"].dt.month == month
+        ]
+
+    # convertir despacho a número
+
+    df["Despacho"] = pd.to_numeric(
+        df["Despacho"],
+        errors="coerce"
+    ).fillna(0)
+
+    grouped = (
+        df
+        .groupby("Fecha")["Despacho"]
+        .sum()
+        .reset_index()
+    )
+
+    grouped["Fecha"] = (
+        grouped["Fecha"]
+        .dt.strftime("%d-%m-%Y")
+    )
+
+    grouped.columns = [
+        "fecha",
+        "despachos"
+    ]
+
+    return grouped.to_dict(
+        orient="records"
+    )
+    
+
 
 def get_clients():
 

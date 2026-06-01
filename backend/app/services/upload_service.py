@@ -21,8 +21,15 @@ async def upload_excel(file: UploadFile):
     # limpiar
     df = clean_dataframe(df)
 
+    df["Fecha"] = pd.to_datetime(
+        df["Fecha"],
+        errors="coerce"
+    )
+
     # guardar dataset global
     dataset_store.dataset = df
+
+    
 
     clients = (
         df["Sucursal"]
