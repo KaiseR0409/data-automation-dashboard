@@ -1,7 +1,7 @@
 <script setup>
 
 import {
-    Package,
+    Package2,
     Boxes
 } from "lucide-vue-next"
 
@@ -60,7 +60,7 @@ defineProps({
                 justify-center
                 mb-4
             ">
-                <Package class="w-7 h-7 text-pink-400" />
+                <Package2 class="w-7 h-7 text-pink-400" />
             </div>
 
             <p class="text-gray-400 text-sm mb-2">
