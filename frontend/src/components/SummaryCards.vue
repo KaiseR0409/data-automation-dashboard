@@ -73,8 +73,14 @@ defineProps({
                 Total Toneladas Sacos
             </h3>
 
-            <CountUp :end-val="summary.total_sacos || 0" :duration="2" class="text-4xl font-bold text-white" />
+            <div class="flex items-end gap-2">
+                <CountUp :end-val="summary.total_sacos || 0" :duration="2" :decimals="2"
+                    class="text-4xl font-bold text-white" />
 
+                <span class="text-xl text-purple-300 mb-1">
+                    T
+                </span>
+            </div>
             <CountUp :end-val="summary?.variations?.sacos || 0" :duration="1.5" :decimals="1" suffix="%"
                 class="text-sm mt-2 font-medium" :class="summary?.variations?.sacos >= 0
                     ? 'text-green-400'
@@ -130,14 +136,19 @@ defineProps({
                 Total Toneladas Maxisacos
             </h3>
 
-            <CountUp :end-val="summary.total_maxisacos || 0" :duration="2" class="text-4xl font-bold text-white" />
+            <div class="flex items-end gap-2">
+                <CountUp :end-val="summary.total_maxisacos || 0" :duration="2" :decimals="2"
+                    class="text-4xl font-bold text-white" />
 
+                <span class="text-xl text-purple-300 mb-1">
+                    T
+                </span>
+            </div>
             <CountUp :end-val="summary?.variations?.maxisacos || 0" :duration="1.5" :decimals="1" suffix="%"
                 class="text-sm mt-2 font-medium" :class="summary?.variations?.maxisacos >= 0
                     ? 'text-green-400'
                     : 'text-red-400'
                     " />
-
         </div>
 
         <!-- CLIENTES -->

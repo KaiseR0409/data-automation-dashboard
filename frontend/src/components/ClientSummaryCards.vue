@@ -64,10 +64,17 @@ defineProps({
             </div>
 
             <p class="text-gray-400 text-sm mb-2">
-               Total Toneladas Sacos de {{ client }}
+                Total Toneladas Sacos de {{ client }}
             </p>
 
-            <CountUp :end-val="summary.total_sacos || 0" :duration="2" class="text-4xl font-bold text-white" />
+            <div class="flex items-end gap-2">
+                <CountUp :end-val="summary.total_sacos || 0" :duration="2" :decimals="2"
+                    class="text-4xl font-bold text-white" />
+
+                <span class="text-lg text-pink-300 mb-1">
+                    T
+                </span>
+            </div>
 
         </div>
 
@@ -114,7 +121,14 @@ defineProps({
                 Total Toneladas Maxisacos {{ client }}
             </p>
 
-           <CountUp :end-val="summary.total_maxisacos || 0" :duration="2" class="text-4xl font-bold text-white" />
+            <div class="flex items-end gap-2">
+                <CountUp :end-val="summary.total_maxisacos || 0" :duration="2" :decimals="2"
+                    class="text-4xl font-bold text-white" />
+
+                <span class="text-lg text-pink-300 mb-1">
+                    T
+                </span>
+            </div>
 
         </div>
 

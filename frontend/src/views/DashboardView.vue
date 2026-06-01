@@ -57,10 +57,10 @@ const fetchTruckChart = async (filters) => {
 
       datasets: [
         {
-          label: "Despachos",
+          label: "Camiones",
 
           data: response.data.map(
-            item => item.despachos
+            item => item.camiones
           ),
 
           borderColor: "#22c55e",

@@ -115,8 +115,24 @@ def get_dashboard_summary(client=None, year=None):
         return{
             "error": "Dataset vacío"
         }
+
+    df = df.copy()
+
+    df["Despacho"] = pd.to_numeric(
+        df["Despacho"],
+        errors="coerce"
+    ).fillna(0)
     
-        # filtrar por año
+    if previous_df is not None:
+
+        previous_df = previous_df.copy()
+
+        previous_df["Despacho"] = pd.to_numeric(
+            previous_df["Despacho"],
+            errors="coerce"
+        ).fillna(0)
+
+    # filtrar por año
     if year:
 
         df = df[
@@ -145,15 +161,19 @@ def get_dashboard_summary(client=None, year=None):
     total_maxisacos = 0
     registros_totales = 0
 
-    if "Formato" in df.columns and "Sacos" in df.columns:
+    if "Formato" in df.columns and "Despacho" in df.columns:
 
         total_sacos = (
-            df[df["Formato"] == "SACOS"]["Sacos"]
+            df[
+                df["Formato"] == "SACOS"
+            ]["Despacho"]
             .sum()
         )
 
         total_maxisacos = (
-            df[df["Formato"] == "MAXISACOS"]["Sacos"]
+            df[
+                df["Formato"] == "MAXISACOS"
+            ]["Despacho"]
             .sum()
         )
 
@@ -176,13 +196,13 @@ def get_dashboard_summary(client=None, year=None):
         previous_sacos = (
             previous_df[
                 previous_df["Formato"] == "SACOS"
-            ]["Sacos"].sum()
+            ]["Despacho"].sum()
         )
 
         previous_total_maxisacos = (
             previous_df[
                 previous_df["Formato"] == "MAXISACOS"
-            ]["Sacos"].sum()
+            ]["Despacho"].sum()
         )
 
         previous_clientes = (
@@ -214,18 +234,18 @@ def get_dashboard_summary(client=None, year=None):
 
 
     return {
-        "total_sacos": int(total_sacos),
-        "total_maxisacos": int(total_maxisacos),
+        "total_sacos": float(round(total_sacos, 2)),
+        "total_maxisacos": float(round(total_maxisacos, 2)),
         "clientes_activos": int(clientes_activos),
         "registros_totales": int(registros_totales),
 
         "variations": {
-            "sacos": sacos_variation,
-            "maxisacos": maxisacos_variation,
-            "clientes": clientes_variation,
-            "registros": registros_variation
+            "sacos": float(sacos_variation),
+            "maxisacos": float(maxisacos_variation),
+            "clientes": float(clientes_variation),
+            "registros": float(registros_variation)
         }
-    }
+}
 
 def get_line_chart_data(
   client=None,
@@ -306,33 +326,28 @@ def get_truck_chart(
     )
 
     if client:
-
         df = df[
             df["Sucursal"] == client
         ]
 
     if year:
-
         df = df[
             df["Fecha"].dt.year == year
         ]
 
     if month:
-
         df = df[
             df["Fecha"].dt.month == month
         ]
 
-    # convertir despacho a número
-
-    df["Despacho"] = pd.to_numeric(
-        df["Despacho"],
+    df["CONTADOR"] = pd.to_numeric(
+        df["CONTADOR"],
         errors="coerce"
     ).fillna(0)
 
     grouped = (
         df
-        .groupby(["Fecha", "SEMANA"])["Despacho"]
+        .groupby(["Fecha", "SEMANA"])["CONTADOR"]
         .sum()
         .reset_index()
     )
@@ -345,14 +360,12 @@ def get_truck_chart(
     grouped.columns = [
         "fecha",
         "semana",
-        "despachos"
+        "camiones"
     ]
 
     return grouped.to_dict(
         orient="records"
     )
-    
-
 
 def get_clients():
 

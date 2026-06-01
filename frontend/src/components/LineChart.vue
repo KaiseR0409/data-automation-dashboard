@@ -193,7 +193,7 @@ Chart.register(
     ">
 
             Gráfica de
-            {{ selectedProduct || "Tonelaje de productos" }}
+            {{ selectedProduct || "Saco de productos" }}
 
         </h2>
 
