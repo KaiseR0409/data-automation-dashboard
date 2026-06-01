@@ -287,6 +287,71 @@ def get_line_chart_data(
         orient="records"
     )
 
+def get_truck_chart(
+    client=None,
+    year=None,
+    month=None
+):
+    df = dataset_store.dataset
+
+    if df is None:
+        return []
+
+    df = df.copy()
+
+    df["Fecha"] = pd.to_datetime(
+        df["Fecha"],
+        errors="coerce"
+    )
+
+    if client:
+
+        df = df[
+            df["Sucursal"] == client
+        ]
+
+    if year:
+
+        df = df[
+            df["Fecha"].dt.year == year
+        ]
+
+    if month:
+
+        df = df[
+            df["Fecha"].dt.month == month
+        ]
+
+    # convertir despacho a número
+
+    df["Despacho"] = pd.to_numeric(
+        df["Despacho"],
+        errors="coerce"
+    ).fillna(0)
+
+    grouped = (
+        df
+        .groupby("Fecha")["Despacho"]
+        .sum()
+        .reset_index()
+    )
+
+    grouped["Fecha"] = (
+        grouped["Fecha"]
+        .dt.strftime("%d-%m-%Y")
+    )
+
+    grouped.columns = [
+        "fecha",
+        "despachos"
+    ]
+
+    return grouped.to_dict(
+        orient="records"
+    )
+    
+
+
 def get_clients():
 
     df = dataset_store.dataset

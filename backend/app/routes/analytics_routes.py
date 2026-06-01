@@ -4,7 +4,8 @@ from app.services.analytics_service import (
     get_client_pivot_table,
     get_clients,
     get_dashboard_summary,
-    get_line_chart_data
+    get_line_chart_data,
+    get_truck_chart
 )
 
 router = APIRouter(
@@ -45,6 +46,17 @@ def line_chart(
     return get_line_chart_data(
         client,
         product,
+        year,
+        month
+    )
+@router.get("/truck-chart")
+def truck_chart(
+    client: str | None = None,
+    year: int | None = None,
+    month: int | None = None
+):
+    return get_truck_chart(
+        client,
         year,
         month
     )
