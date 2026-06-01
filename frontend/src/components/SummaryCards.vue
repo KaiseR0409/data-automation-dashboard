@@ -1,11 +1,12 @@
 <script setup>
 
 import {
-    Package,
+    Package2,
     Boxes,
     Users,
     Database
 } from "lucide-vue-next"
+
 
 import CountUp from "vue-countup-v3"
 
@@ -65,7 +66,7 @@ defineProps({
                 justify-center
                 mb-4
             ">
-                <Package class="w-7 h-7 text-purple-400" />
+                <Package2 class="w-8 h-8 text-purple-400" />
             </div>
 
             <h3 class="text-gray-400 text-sm mb-2">
@@ -76,7 +77,7 @@ defineProps({
 
             <CountUp :end-val="summary?.variations?.sacos || 0" :duration="1.5" :decimals="1" suffix="%"
                 class="text-sm mt-2 font-medium" :class="summary?.variations?.sacos >= 0
-                    ? 'text-green-400'  
+                    ? 'text-green-400'
                     : 'text-red-400'
                     " />
 

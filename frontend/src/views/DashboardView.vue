@@ -44,9 +44,16 @@ const fetchTruckChart = async (filters) => {
     )
 
     truckChartData.value = {
+
       labels: response.data.map(
         item => item.fecha
       ),
+
+      weeks: response.data.map(
+        item => item.semana
+      ),
+
+      showWeeks: !!currentFilters.value.month,
 
       datasets: [
         {
@@ -181,6 +188,13 @@ const fetchLineChart = async (filters) => {
         item => item.fecha
       ),
 
+      weeks: response.data.map(
+        item => item.semana
+      ),
+
+      showWeeks: !!currentFilters.value.month,
+
+
       datasets: [
         {
           label: productFilter.value || "Sacos",
@@ -277,7 +291,7 @@ watch(globalYear, async () => {
           mb-10
           text-center
         ">
-        Dashboard de Productos
+        Dashboard de Tonelaje | Reloncaví
       </h1>
 
       <div class="
@@ -369,7 +383,6 @@ watch(globalYear, async () => {
       </div>
       <LineChart v-if="lineChartData" :chartData="lineChartData" :selectedProduct="selectedProduct" />
       <LineChart v-if="truckChartData" :chartData="truckChartData" selectedProduct="Despachos" />
-
     </div>
 
   </div>

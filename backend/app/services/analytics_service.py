@@ -268,7 +268,7 @@ def get_line_chart_data(
     
     grouped = (
         filtered_df
-        .groupby("Fecha")["Sacos"]
+        .groupby(["Fecha", "SEMANA"])["Sacos"]
         .sum()
         .reset_index()
     )
@@ -280,6 +280,7 @@ def get_line_chart_data(
 
     grouped.columns = [
         "fecha",
+        "semana",
         "cantidad"
     ]
 
@@ -331,7 +332,7 @@ def get_truck_chart(
 
     grouped = (
         df
-        .groupby("Fecha")["Despacho"]
+        .groupby(["Fecha", "SEMANA"])["Despacho"]
         .sum()
         .reset_index()
     )
@@ -343,6 +344,7 @@ def get_truck_chart(
 
     grouped.columns = [
         "fecha",
+        "semana",
         "despachos"
     ]
 
