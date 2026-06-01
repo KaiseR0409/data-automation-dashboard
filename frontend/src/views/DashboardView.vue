@@ -25,6 +25,53 @@ const selectedProduct = ref("")
 const productFilter = ref("")
 const globalYear = ref("")
 const currentFilters = ref({})
+const truckChartData = ref(null)
+
+const fetchTruckChart = async (filters) => {
+  if (!filters.client) {
+    return
+  }
+
+  try {
+    const response = await api.get("/analytics/truck-chart",
+      {
+        params: {
+          client: filters.client,
+          year: globalYear.value || undefined,
+          month: filters.month
+        }
+      }
+    )
+
+    truckChartData.value = {
+      labels: response.data.map(
+        item => item.fecha
+      ),
+
+      datasets: [
+        {
+          label: "Despachos",
+
+          data: response.data.map(
+            item => item.despachos
+          ),
+
+          borderColor: "#22c55e",
+
+          backgroundColor:
+            "rgba(34,197,94,0.2)",
+
+          tension: 0.4,
+
+          fill: true
+        }
+      ]
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 const fetchSummary = async () => {
 
@@ -75,6 +122,7 @@ const fetchClientData = async (filters) => {
   selectedClient.value = filters.client
   currentFilters.value = filters
   await fetchLineChart(filters)
+  await fetchTruckChart(filters)
 
   if (!filters.client) {
     tableData.value = []
@@ -320,6 +368,7 @@ watch(globalYear, async () => {
 
       </div>
       <LineChart v-if="lineChartData" :chartData="lineChartData" :selectedProduct="selectedProduct" />
+      <LineChart v-if="truckChartData" :chartData="truckChartData" selectedProduct="Despachos" />
 
     </div>
 
