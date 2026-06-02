@@ -26,10 +26,16 @@ async def upload_excel(file: UploadFile):
         errors="coerce"
     )
 
+    # guardar dataset anterior
+    if dataset_store.dataset is not None:
+
+        dataset_store.previous_dataset = (
+            dataset_store.dataset.copy()
+        )
+
+
     # guardar dataset global
     dataset_store.dataset = df
-
-    
 
     clients = (
         df["Sucursal"]

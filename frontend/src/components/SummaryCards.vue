@@ -14,6 +14,21 @@ defineProps({
     summary: Object
 })
 
+
+const formatVariation = (value) => {
+    const rounded = Math.round(value)
+
+    if (rounded > 0) {
+        return `↑ +${rounded}%`
+    }
+
+    if (rounded < 0) {
+        return `↓ ${rounded}%`
+    }
+
+    return "0%"
+}
+
 </script>
 
 <template>
@@ -80,11 +95,12 @@ defineProps({
                     T
                 </span>
             </div>
-            <CountUp :end-val="summary?.variations?.sacos || 0" :duration="1.5" suffix="%"
-                class="text-sm mt-2 font-medium" :class="summary?.variations?.sacos >= 0
-                    ? 'text-green-400'
-                    : 'text-red-400'
-                    " />
+            <p class="text-sm mt-2 font-medium" :class="summary?.variations?.sacos >= 0
+                ? 'text-green-400'
+                : 'text-red-400'
+                ">
+                {{ formatVariation(summary?.variations?.sacos || 0) }}
+            </p>
 
 
         </div>
@@ -143,11 +159,12 @@ defineProps({
                     T
                 </span>
             </div>
-            <CountUp :end-val="summary?.variations?.maxisacos || 0" :duration="1.5" suffix="%"
-                class="text-sm mt-2 font-medium" :class="summary?.variations?.maxisacos >= 0
-                    ? 'text-green-400'
-                    : 'text-red-400'
-                    " />
+            <p class="text-sm mt-2 font-medium" :class="summary?.variations?.maxisacos >= 0
+                ? 'text-green-400'
+                : 'text-red-400'
+                ">
+                {{ formatVariation(summary?.variations?.maxisacos || 0) }}
+            </p>
         </div>
 
         <!-- CLIENTES -->
@@ -198,11 +215,12 @@ defineProps({
 
             <CountUp :end-val="summary.clientes_activos || 0" :duration="2" class="text-4xl font-bold text-white" />
 
-            <CountUp :end-val="summary?.variations?.clientes || 0" :duration="1.5" suffix="%"
-                class="text-sm mt-2 font-medium" :class="summary?.variations?.clientes >= 0
-                    ? 'text-green-400'
-                    : 'text-red-400'
-                    " />
+            <p class="text-sm mt-2 font-medium" :class="summary?.variations?.clientes >= 0
+                ? 'text-green-400'
+                : 'text-red-400'
+                ">
+                {{ formatVariation(summary?.variations?.clientes || 0) }}
+            </p>
 
         </div>
 
@@ -254,11 +272,12 @@ defineProps({
 
             <CountUp :end-val="summary.registros_totales || 0" :duration="2" class="text-4xl font-bold text-white" />
 
-            <CountUp :end-val="summary?.variations?.registros || 0" :duration="1.5" suffix="%"
-                class="text-sm mt-2 font-medium" :class="summary?.variations?.registros >= 0
-                    ? 'text-green-400'
-                    : 'text-red-400'
-                    " />
+            <p class="text-sm mt-2 font-medium" :class="summary?.variations?.registros >= 0
+                ? 'text-green-400'
+                : 'text-red-400'
+                ">
+                {{ formatVariation(summary?.variations?.registros || 0) }}
+            </p>
 
 
 

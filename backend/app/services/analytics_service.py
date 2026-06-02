@@ -138,12 +138,6 @@ def get_dashboard_summary(client=None, year=None):
         df = df[
             df["Fecha"].dt.year == year
         ]
-
-        if previous_df is not None:
-
-            previous_df = previous_df[
-                previous_df["Fecha"].dt.year == year
-            ]
     
 
     #filtrar por cliente
