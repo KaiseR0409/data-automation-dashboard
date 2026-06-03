@@ -1,7 +1,7 @@
 # envs
 app/.env
 frontend/.env
-backend/.env
+app/backend/.env
 
 # python
 __pycache__/
