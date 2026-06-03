@@ -684,5 +684,5 @@ python -m venv venv
 ---
 
 # Autor
-
+Fernando Valderrama - Desarrollador Fullstack Jr.
 Proyecto desarrollado para visualización operativa de tonelaje, despachos y análisis de clientes.
